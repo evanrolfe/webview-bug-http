@@ -5,17 +5,18 @@
     <title>Hello World!</title>
   </head>
   <body>
-    <webview src="https://github.com"></webview>
+    Webview is below:<br/>
+    <webview src="about:blank" style="width: 400px; height: 400px; border: 1px solid black;"></webview>
   </body>
 </html>
 <script>
   let webview = document.querySelector('webview');
-    webview.addEventListener('dom-ready', () => {
-      webview.loadURL(
-          `data:text/html;charset=utf-8;base64,
-          PGgxPkhBTExPPC9oMT4=
-          `, { baseURLForDataURL: `file://home/` })
-          //This will fix the issue:
-          // `)
-    })
+
+  const loadPage = () => {
+    const html = '<b>This is the webview fetching an image from githubusercontent.com: <br/> <img src="/u/9274?s=460&v=4" height=100/></b>';
+    webview.loadURL(`data:text/html,${html}`, {baseURLForDataURL: 'https://avatars2.githubusercontent.com/'});
+    webview.removeEventListener('dom-ready', loadPage);
+  };
+
+  webview.addEventListener('dom-ready', loadPage)
 </script>
